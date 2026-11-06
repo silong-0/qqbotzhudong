@@ -1,0 +1,15 @@
+name: astrbot_plugin_proactive_chat
+display_name: 主动随机消息
+short_desc: 按白名单在随机时间用当前人格主动发消息，可读取上下文和日记。
+desc: >-
+  按白名单会话随机间隔主动发送消息；生成时读取该会话当前人格、最近对话上下文，
+  并可读取记忆日记插件保存的过往日记；同时避免重复最近主动说过的话。
+version: 1.1.1
+author: local
+repo: https://github.com/AstrBotDevs/AstrBot
+astrbot_version: ">=4.14.0"
+tags:
+  - 主动消息
+  - 人格
+  - 记忆
+  - 白名单

@@ -1,0 +1,102 @@
+{
+  "enabled": {
+    "description": "启用主动消息",
+    "type": "bool",
+    "default": false,
+    "hint": "关闭时不会定时发送；修改后重载插件生效。"
+  },
+  "whitelist": {
+    "description": "白名单会话",
+    "type": "list",
+    "items": {
+      "type": "string"
+    },
+    "default": [],
+    "hint": "每项一个 UMO，例如 snowluma:GroupMessage:514821538 或 snowluma:FriendMessage:2939317681。只有这里列出的会话会收到主动消息。"
+  },
+  "min_minutes": {
+    "description": "最小间隔（分钟）",
+    "type": "int",
+    "default": 90,
+    "slider": {
+      "min": 1,
+      "max": 1440,
+      "step": 1
+    },
+    "hint": "每个会话在最小和最大间隔之间随机选择下一次发送时间。"
+  },
+  "max_minutes": {
+    "description": "最大间隔（分钟）",
+    "type": "int",
+    "default": 240,
+    "slider": {
+      "min": 1,
+      "max": 2880,
+      "step": 1
+    },
+    "hint": "必须大于等于最小间隔。"
+  },
+  "active_start": {
+    "description": "允许发送的开始时间",
+    "type": "string",
+    "default": "09:00",
+    "hint": "24 小时制 HH:MM；不在时间段内时顺延到下一次开始时间。"
+  },
+  "active_end": {
+    "description": "允许发送的结束时间",
+    "type": "string",
+    "default": "23:30",
+    "hint": "24 小时制 HH:MM；不能与开始时间相同。"
+  },
+  "read_context": {
+    "description": "读取当前会话上下文",
+    "type": "bool",
+    "default": true,
+    "hint": "生成主动消息前读取当前会话最近的聊天记录，避免接不上话或重复说过的话。"
+  },
+  "context_limit": {
+    "description": "读取上下文条数",
+    "type": "int",
+    "default": 8,
+    "slider": {
+      "min": 2,
+      "max": 30,
+      "step": 1
+    },
+    "hint": "按对话条目计数：一条用户消息算一条，一条助手回复算一条；分段回复仍算一条助手消息，不是 QQ 气泡数。"
+  },
+  "read_memory": {
+    "description": "读取过往日记",
+    "type": "bool",
+    "default": true,
+    "hint": "从大肥鱼记忆日记插件读取该会话的最近日记，用于生成更连贯的主动消息。"
+  },
+  "memory_limit": {
+    "description": "读取日记篇数",
+    "type": "int",
+    "default": 3,
+    "slider": {
+      "min": 0,
+      "max": 10,
+      "step": 1
+    },
+    "hint": "最多带入多少篇最近日记；0 表示不读取。"
+  },
+  "max_chars": {
+    "description": "单条最大字数",
+    "type": "int",
+    "default": 220,
+    "slider": {
+      "min": 20,
+      "max": 500,
+      "step": 10
+    },
+    "hint": "生成后超长会截断，避免刷屏。"
+  },
+  "prompt": {
+    "description": "额外要求",
+    "type": "text",
+    "default": "像平时在群里随手说话一样，1到2句，不要解释，不要提日记或系统提示。",
+    "hint": "会附加到主动消息生成提示词中。"
+  }
+}

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>主动随机消息</title>
+    <link rel="stylesheet" href="style.css?v=5" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div>
+          <h1>主动随机消息</h1>
+          <p class="sub">勾选白名单会话，在允许的时间段内按随机间隔主动说话。生成时使用该会话当前人格，并可读取过往日记。</p>
+        </div>
+        <div class="top-actions">
+          <span id="saveState" class="save-state">未修改</span>
+          <button id="saveBtn" class="btn" type="button">保存配置</button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <div class="sidebar-head">
+            <input id="sessionFilter" type="search" placeholder="筛选会话..." />
+            <div class="quick-actions">
+              <button id="selectAllBtn" class="link-btn" type="button">全选</button>
+              <button id="selectNoneBtn" class="link-btn" type="button">清空</button>
+            </div>
+          </div>
+          <div id="sessionList" class="session-list"></div>
+          <div class="add-box">
+            <div class="add-title">从列表选择，或手动输入 UMO</div>
+            <button id="openPickerBtn" class="btn ghost picker-trigger" type="button">从已有会话选择...</button>
+            <input id="newUmo" type="text" placeholder="或手动输入 snowluma:GroupMessage:123456" />
+            <button id="addBtn" class="btn ghost" type="button">加入白名单</button>
+          </div>
+        </aside>
+
+        <main class="content">
+          <section class="card">
+            <div class="card-head">
+              <div>
+                <h2>发送规则</h2>
+                <p class="meta">保存后立即生效，不需要重启。</p>
+              </div>
+              <label class="switch-label">
+                <span>启用主动消息</span>
+                <span class="switch">
+                  <input id="enabledInput" type="checkbox" />
+                  <span class="slider"></span>
+                </span>
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <label>最小间隔（分钟）<input id="minInput" type="number" min="1" max="1440" /></label>
+              <label>最大间隔（分钟）<input id="maxInput" type="number" min="1" max="2880" /></label>
+              <label>开始时间<input id="startInput" type="time" /></label>
+              <label>结束时间<input id="endInput" type="time" /></label>
+              <label class="check-line"><input id="contextInput" type="checkbox" /> 读取当前会话上下文</label>
+              <label>上下文条数（按对话条目）<input id="contextLimitInput" type="number" min="2" max="30" /></label>
+              <label class="check-line"><input id="memoryInput" type="checkbox" /> 读取过往日记</label>
+              <label>读取日记篇数<input id="memoryLimitInput" type="number" min="0" max="10" /></label>
+              <label>单条最大字数<input id="maxCharsInput" type="number" min="20" max="500" step="10" /></label>
+            </div>
+
+            <label class="full-line">额外要求
+              <textarea id="promptInput" rows="4" maxlength="2000"></textarea>
+            </label>
+          </section>
+
+          <section class="card">
+            <div class="card-head">
+              <div>
+                <h2>白名单会话</h2>
+                <p id="selectedCount" class="meta">已选 0 个会话</p>
+              </div>
+              <button id="testSelectedBtn" class="btn ghost" type="button" disabled>测试发送选中会话</button>
+            </div>
+            <div id="selectedList" class="selected-list"></div>
+            <div id="status" class="status"></div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <dialog id="sessionPicker" class="picker-dialog">
+      <div class="picker-head">
+        <div>
+          <h3>选择会话</h3>
+          <p class="meta">选择一个群聊或私聊加入主动消息白名单</p>
+        </div>
+        <button id="pickerClose" class="btn ghost small" type="button">关闭</button>
+      </div>
+      <input id="pickerSearch" type="search" placeholder="搜索名称、UMO 或人格..." />
+      <div id="pickerList" class="picker-list"></div>
+    </dialog>
+
+    <script src="/api/plugin/page/bridge-sdk.js"></script>
+    <script src="script.js?v=5"></script>
+  </body>
+</html>
